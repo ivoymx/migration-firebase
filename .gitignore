@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+ivoy-security.js
+source-for-migration.js
+target-for-migration.js
