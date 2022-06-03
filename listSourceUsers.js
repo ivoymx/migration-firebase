@@ -1,9 +1,9 @@
-var admin = require("firebase-admin");
+import admin from "firebase-admin";
 
-var sourceServiceAccount = require("./source-for-migration.js");
+import * as sourceServiceAccount from "./source-for-migration.js";
 
 admin.initializeApp({
-  credential: admin.credential.cert(sourceServiceAccount),
+  credential: admin.credential.cert(sourceServiceAccount.info),
 });
 
 const listAllUsers = (nextPageToken) => {

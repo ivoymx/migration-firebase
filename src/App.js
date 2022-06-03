@@ -10,9 +10,12 @@ import "./App.css";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  // Aqui va la configuración de la Web App
+};
 
 // Initialize Firebase
-firebase.initializeApp();
+firebase.initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 // Initialize the FirebaseUI Widget using Firebase.
 var ui = new firebaseui.auth.AuthUI(firebase.auth());

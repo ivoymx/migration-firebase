@@ -1,31 +1,24 @@
-import fetch from "node-fetch";
 import admin from "firebase-admin";
 
-import sourceServiceAccount from "./source-for-migration";
-import targetServiceAccount from "./sour";
+import * as sourceServiceAccount from "./source-for-migration.js";
+import * as targetServiceAccount from "./target-for-migration.js";
 
 var sourceApp = admin.initializeApp(
   {
-    credential: admin.credential.cert(sourceServiceAccount),
+    credential: admin.credential.cert(sourceServiceAccount.info),
   },
   "source-app"
 );
 
 var targetApp = admin.initializeApp(
   {
-    credential: admin.credential.cert(targetServiceAccount),
+    credential: admin.credential.cert(targetServiceAccount.info),
   },
   "target-app"
 );
 
 var authFrom = sourceApp.auth();
 var authTo = targetApp.auth();
-
-const createOneUserMutation = `mutation CreateOneUser($input: CreateOneUserInput!) {
-  createOneUser(input: $input) {
-    id
-  }
-}`;
 
 function migrateUsers(userImportOptions, nextPageToken) {
   var pageToken;
@@ -42,8 +35,6 @@ function migrateUsers(userImportOptions, nextPageToken) {
         }
         // Delete tenant ID if available. This will be set automatically.
         delete modifiedUser.tenantId;
-        //
-        // Lógica para crear user en auth
 
         //
         users.push(modifiedUser);
@@ -66,13 +57,14 @@ function migrateUsers(userImportOptions, nextPageToken) {
       console.log("Error importing users:", error);
     });
 }
+
 var userImportOptions = {
   hash: {
     algorithm: "SCRYPT",
     // The following parameters can be obtained from the "Users" page in the
     // Cloud Console. The key must be a byte buffer.
     key: Buffer.from(
-      "XDHG8wVPRwwxSRboT6i/wuI3PMIm81o1CrMmKDm/Veo89sDX/eiOWrw7cthBzm0/Dy6HPblkvQZZJluh7skh3Q==",
+      "Aquí va tu signer key (del proyecto original) y checa que los demás campos correspondan",
       "base64"
     ),
     saltSeparator: Buffer.from("Bw==", "base64"),
